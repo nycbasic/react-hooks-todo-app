@@ -10,7 +10,6 @@ import {
 
 const Todos = (props) => {
 	const { todos } = props;
-	console.log(todos);
 	return todos.map((value) => {
 		const labelId = `checkbox-list-secondary-label-${value}`;
 		return (

@@ -2,11 +2,11 @@ import React from 'react';
 import { Typography, TextField, Button } from '@material-ui/core';
 
 const TodoForm = (props) => {
-	const { todo, updateTodo, submitTodo } = props;
+	const { todo, updateTodo, submitTodo, resetTodoField} = props;
 	return (
 		<React.Fragment>
 			<Typography variant='h5'>Todo List</Typography>
-			<Button variant='contained' color='primary' onClick={() => submitTodo(todo)}>
+			<Button variant='contained' color='primary' onClick={() => submitTodo(todo, resetTodoField)}>
 				Enter
 			</Button>
 			<TextField
