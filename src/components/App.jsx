@@ -6,18 +6,18 @@ import { useInputState, useAddTodo } from '../hooks';
 
 const App = () => {
 	const [todo, updateTodo, resetTodoField] = useInputState('');
-  const [todos, submitTodo] = useAddTodo([]);
+  const [todos, submitTodo, deleteTodo] = useAddTodo([]);
 
 	return (
 		<div className='App'>
 			<NavBar />
 			<TodoForm
-				todo={todo}
+        todo={todo}
 				updateTodo={updateTodo}
 				submitTodo={submitTodo}
 				resetTodoField={resetTodoField}
 			/>
-			<TodoList todos={todos} />
+			<TodoList todos={todos} deleteTodo={deleteTodo}/>
 		</div>
 	);
 };

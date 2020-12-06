@@ -6,10 +6,12 @@ import {
 	ListItemAvatar,
 	Checkbox,
 	Avatar,
+	IconButton,
 } from '@material-ui/core';
+import { Delete, Edit } from '@material-ui/icons';
 
 const Todos = (props) => {
-	const { todos } = props;
+	const { todos, deleteTodo } = props;
 	return todos.map((value) => {
 		const labelId = `checkbox-list-secondary-label-${value}`;
 		return (
@@ -28,6 +30,16 @@ const Todos = (props) => {
 						// checked={checked.indexOf(value) !== -1}
 						inputProps={{ 'aria-labelledby': labelId }}
 					/>
+					<IconButton edge='end' aria-label='delete'>
+						<Edit />
+					</IconButton>
+					<IconButton
+						edge='end'
+						aria-label='delete'
+						onClick={() => deleteTodo(todos, value)}
+					>
+						<Delete />
+					</IconButton>
 				</ListItemSecondaryAction>
 			</ListItem>
 		);

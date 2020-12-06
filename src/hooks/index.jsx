@@ -6,7 +6,13 @@ export const useAddTodo = (initVal) => {
         setValue([...value, newVal]);
         reset();
     }
-    return [value, handleSubmit];
+    const handleDeleteTodo = (val, val2) => {
+        const newArr = val.filter(item => {
+            return item !== val2;
+        })
+        setValue(newArr)
+    }
+    return [value, handleSubmit, handleDeleteTodo];
 }
 
 
