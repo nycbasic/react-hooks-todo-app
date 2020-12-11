@@ -2,22 +2,32 @@ import '../css/App.css';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
 import NavBar from './NavBar';
-import { useInputState, useAddTodo } from '../hooks';
+import { useInputState, useAddTodo, useMarkCompleted } from '../hooks';
 
 const App = () => {
 	const [todo, updateTodo, resetTodoField] = useInputState('');
-  const [todos, submitTodo, deleteTodo] = useAddTodo([]);
-
+	const [editedTodo, updateEditedTodo, resetEditTodoField] = useInputState('');
+	const [todos, submitTodo, submitEdit, deleteTodo, toggleCompleted, toggleEdit] = useAddTodo([]);
+	console.log(todo);
 	return (
 		<div className='App'>
 			<NavBar />
 			<TodoForm
-        todo={todo}
+				todo={todo}
 				updateTodo={updateTodo}
 				submitTodo={submitTodo}
 				resetTodoField={resetTodoField}
 			/>
-			<TodoList todos={todos} deleteTodo={deleteTodo}/>
+			<TodoList
+				submitEdit={submitEdit}
+				editedTodo={editedTodo}
+				todos={todos}
+				updateEditedTodo={updateEditedTodo}
+				resetEditTodoField={resetEditTodoField}
+				deleteTodo={deleteTodo}
+				toggleCompleted={toggleCompleted}
+				toggleEdit={toggleEdit}
+			/>
 		</div>
 	);
 };

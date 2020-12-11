@@ -2,17 +2,32 @@ import { useState } from 'react';
 
 export const useAddTodo = (initVal) => {
     const [value, setValue] = useState(initVal);
-    const handleSubmit = (newVal, reset) => {
-        setValue([...value, newVal]);
+    const handleSubmit = (newVal, id, reset) => {
+        setValue([...value, {id ,todo: newVal, completed: false, edit: false}]);
         reset();
     }
-    const handleDeleteTodo = (val, val2) => {
-        const newArr = val.filter(item => {
+
+    const handledEditSubmit = (index, id, todo, completed, edit, reset) => {
+        value.splice(index, 1, {id, todo, completed, edit: !edit})
+        setValue([...value])
+        reset();
+    }
+    const handleDeleteTodo = (val2) => {
+        const newArr = value.filter(item => {
             return item !== val2;
         })
         setValue(newArr)
     }
-    return [value, handleSubmit, handleDeleteTodo];
+    const toggleCompleted = (index, id, todo, completed, edit ) => {
+        value.splice(index, 1, {id, todo, completed: !completed, edit})
+        setValue([...value]);
+    }
+
+    const toggleEdit = (index, id, todo, completed, edit) => {
+        value.splice(index, 1, {id, todo, completed, edit: !edit})
+        setValue([...value])
+    }
+    return [value, handleSubmit, handledEditSubmit, handleDeleteTodo, toggleCompleted, toggleEdit];
 }
 
 
@@ -26,6 +41,14 @@ export const useInputState = initVal => {
     }
 
     return [value, handleChange, reset];
+}
+
+export const useMarkCompleted = initVal => {
+    const [value, setValue] = useState(initVal);
+    const toggleCompleted = (e, id) => {
+        setValue(e.target.checked)
+    }
+    return [value, toggleCompleted];
 }
 
 

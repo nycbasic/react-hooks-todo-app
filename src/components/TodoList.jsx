@@ -3,11 +3,20 @@ import Todos from './Todos';
 import { List, Container } from '@material-ui/core';
 
 const TodoList = (props) => {
-	const { todos, deleteTodo } = props;
+	const { todos, editedTodo, deleteTodo, toggleCompleted, toggleEdit, updateEditedTodo, resetEditTodoField, submitEdit  } = props;
 	return (
 		<Container fixed maxWidth='xs'>
 			<List dense>
-				<Todos todos={todos} deleteTodo={deleteTodo} />
+				<Todos
+					submitEdit={submitEdit}
+					todos={todos}
+					editedTodo={editedTodo}
+					deleteTodo={deleteTodo}
+					updateEditedTodo={updateEditedTodo}
+					resetEditTodoField={resetEditTodoField}
+					toggleCompleted={toggleCompleted}
+					toggleEdit={toggleEdit}
+				/>
 			</List>
 		</Container>
 	);

@@ -7,36 +7,83 @@ import {
 	Checkbox,
 	Avatar,
 	IconButton,
+	TextField,
 } from '@material-ui/core';
-import { Delete, Edit } from '@material-ui/icons';
+import { Delete, Edit, CheckCircle } from '@material-ui/icons';
 
 const Todos = (props) => {
-	const { todos, deleteTodo } = props;
-	return todos.map((value) => {
+	const {
+		todos,
+		editedTodo,
+		deleteTodo,
+		toggleCompleted,
+		toggleEdit,
+		updateEditedTodo,
+		resetEditTodoField,
+		submitEdit,
+	} = props;
+	return todos.map((value, i) => {
 		const labelId = `checkbox-list-secondary-label-${value}`;
+		const { todo, completed, id, edit } = value;
 		return (
-			<ListItem key={value} button>
+			<ListItem key={value.uuid} button>
 				<ListItemAvatar>
 					<Avatar
 						alt={`Avatar n°${value + 1}`}
 						src={`/static/images/avatar/${value + 1}.jpg`}
 					/>
 				</ListItemAvatar>
-				<ListItemText id={labelId} primary={value} />
+				{completed && <CheckCircle />}
+				{edit ? (
+					<TextField
+						label='Edit Todo'
+						id='filled-size-small'
+						defaultValue={todo}
+						placeholder={todo}
+						variant='filled'
+						size='small'
+						value={editedTodo}
+						onChange={updateEditedTodo}
+					/>
+				) : (
+					<ListItemText
+						id={labelId}
+						primary={todo}
+						style={{ textDecoration: completed && 'line-through' }}
+					/>
+				)}
+
 				<ListItemSecondaryAction>
 					<Checkbox
+						disabled={edit}
 						edge='end'
-						// onChange={handleToggle(value)}
-						// checked={checked.indexOf(value) !== -1}
+						onChange={() => toggleCompleted(i, id, todo, completed, edit)}
 						inputProps={{ 'aria-labelledby': labelId }}
 					/>
-					<IconButton edge='end' aria-label='delete'>
+					<IconButton
+						edge='end'
+						aria-label='edit'
+						onClick={
+							!edit
+								? () => toggleEdit(i, id, todo, completed, edit)
+								: () =>
+										submitEdit(
+											i,
+											id,
+											editedTodo,
+											completed,
+											edit,
+											resetEditTodoField
+										)
+						}
+					>
 						<Edit />
 					</IconButton>
 					<IconButton
+						disabled={edit}
 						edge='end'
 						aria-label='delete'
-						onClick={() => deleteTodo(todos, value)}
+						onClick={() => deleteTodo(value)}
 					>
 						<Delete />
 					</IconButton>

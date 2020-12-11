@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, TextField, Button } from '@material-ui/core';
+import { v1 as uuid} from "uuid";
 
 const TodoForm = (props) => {
 	const { todo, updateTodo, submitTodo, resetTodoField} = props;
@@ -10,7 +11,7 @@ const TodoForm = (props) => {
 				disabled={todo.length < 4}
 				variant='contained'
 				color='primary'
-				onClick={() => submitTodo(todo, resetTodoField)}
+				onClick={() => submitTodo(todo, uuid(), resetTodoField)}
 			>
 				Enter
 			</Button>
