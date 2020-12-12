@@ -30,16 +30,17 @@ const Todos = (props) => {
 	} = props;
 	return todos.map((value, i) => {
 		const labelId = `checkbox-list-secondary-label-${value}`;
-		const { todo, completed, edit } = value;
+		const { todo, completed, edit, id } = value;
+		console.log(editedTodo[id])
 		return (
 			<ListItem key={value.uuid} button>
-				<ListItemAvatar>
-					<Avatar
-						alt={`Avatar n°${value + 1}`}
-						src={`/static/images/avatar/${value + 1}.jpg`}
-					/>
-				</ListItemAvatar>
-				{completed && <CheckCircle />}
+				<Checkbox
+					tabIndex={-1}
+					disabled={edit}
+					edge='end'
+					onChange={() => toggleCompleted(id)}
+					inputProps={{ 'aria-labelledby': labelId }}
+				/>
 				{edit ? (
 					<TextField
 						label='Edit Todo'
@@ -47,8 +48,10 @@ const Todos = (props) => {
 						placeholder={todo}
 						variant='filled'
 						size='small'
-						value={editedTodo}
+						name={id}
+						value={editedTodo[id]}
 						onChange={updateEditedTodo}
+						onSelect={() => console.log("text box selected!")}
 					/>
 				) : (
 					<ListItemText
@@ -59,30 +62,20 @@ const Todos = (props) => {
 				)}
 
 				<ListItemSecondaryAction>
-					<Checkbox
-						disabled={edit}
-						edge='end'
-						onChange={() => toggleCompleted(i, value)}
-						inputProps={{ 'aria-labelledby': labelId }}
-					/>
-					<IconButton
-						edge='end'
-						aria-label='edit'
-						onClick={
-							!edit
-								? () => toggleEdit(i, value)
-								: () => submitEdit(i, value, editedTodo, resetEditTodoField)
-						}
-					>
-						{!edit ? <AddCircleOutline /> : <AddCircle />}
-					</IconButton>
 					<IconButton
 						disabled={edit}
 						edge='end'
 						aria-label='delete'
-						onClick={() => deleteTodo(value)}
+						onClick={() => deleteTodo(id)}
 					>
 						<Delete />
+					</IconButton>
+					<IconButton
+						edge='end'
+						aria-label='edit'
+						onClick={() => toggleEdit(id, editedTodo, resetEditTodoField)}
+					>
+						<Edit />
 					</IconButton>
 				</ListItemSecondaryAction>
 			</ListItem>

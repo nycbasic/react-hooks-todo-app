@@ -11,18 +11,18 @@ const TodoForm = (props) => {
 				disabled={todo.length < 4}
 				variant='contained'
 				color='primary'
-				onClick={() => submitTodo(todo, uuid(), resetTodoField)}
+				onClick={() => submitTodo(todo.todoText, uuid(), resetTodoField)}
 			>
 				Enter
 			</Button>
 			<TextField
 				type='text'
-				name='todo'
+				name='todoText'
 				label='Enter your todo'
 				placeholder='Enter your todo!'
 				variant='outlined'
 				size='small'
-				value={todo}
+				value={todo.todoText}
 				onChange={updateTodo}
 			/>
 		</React.Fragment>
