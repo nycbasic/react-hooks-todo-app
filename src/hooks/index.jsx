@@ -7,29 +7,32 @@ export const useAddTodo = (initVal) => {
 		reset();
 	};
 
-	const handledEditSubmit = (index, id, todo, completed, edit, reset) => {
-		console.log('submit edit', +todo.length);
-		if (todo.length < 4) {
+	const handledEditSubmit = (index, item, textEdit, reset) => {
+		const { edit } = item;
+		if (textEdit.length < 1) {
+			value.splice(index, 1, { ...item, edit: !edit });
 			setValue([...value]);
 		} else {
-			value.splice(index, 1, { id, todo, completed, edit: !edit });
+			value.splice(index, 1, { ...item, todo: textEdit, edit: !edit });
 			setValue([...value]);
 			reset();
 		}
 	};
-	const handleDeleteTodo = (val2) => {
+	const handleDeleteTodo = (todo) => {
 		const newArr = value.filter((item) => {
-			return item !== val2;
+			return item !== todo;
 		});
 		setValue(newArr);
 	};
-	const toggleCompleted = (index, id, todo, completed, edit) => {
-		value.splice(index, 1, { id, todo, completed: !completed, edit });
+	const toggleCompleted = (index, item) => {
+		const { completed } = item;
+		value.splice(index, 1, { ...item, completed: !completed });
 		setValue([...value]);
 	};
 
-	const toggleEdit = (index, id, todo, completed, edit) => {
-		value.splice(index, 1, { id, todo, completed, edit: !edit });
+	const toggleEdit = (index, item) => {
+		const { edit } = item;
+		value.splice(index, 1, { ...item, edit: !edit });
 		setValue([...value]);
 	};
 	return [

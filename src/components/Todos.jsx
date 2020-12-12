@@ -9,7 +9,13 @@ import {
 	IconButton,
 	TextField,
 } from '@material-ui/core';
-import { Delete, Edit, CheckCircle } from '@material-ui/icons';
+import {
+	Delete,
+	Edit,
+	CheckCircle,
+	AddCircle,
+	AddCircleOutline,
+} from '@material-ui/icons';
 
 const Todos = (props) => {
 	const {
@@ -23,9 +29,8 @@ const Todos = (props) => {
 		submitEdit,
 	} = props;
 	return todos.map((value, i) => {
-		console.log("Todos.jsx Render", value,value.edit, value.todo);
 		const labelId = `checkbox-list-secondary-label-${value}`;
-		const { todo, completed, id, edit } = value;
+		const { todo, completed, edit } = value;
 		return (
 			<ListItem key={value.uuid} button>
 				<ListItemAvatar>
@@ -57,7 +62,7 @@ const Todos = (props) => {
 					<Checkbox
 						disabled={edit}
 						edge='end'
-						onChange={() => toggleCompleted(i, id, todo, completed, edit)}
+						onChange={() => toggleCompleted(i, value)}
 						inputProps={{ 'aria-labelledby': labelId }}
 					/>
 					<IconButton
@@ -65,19 +70,11 @@ const Todos = (props) => {
 						aria-label='edit'
 						onClick={
 							!edit
-								? () => toggleEdit(i, id, todo, completed, edit)
-								: () =>
-										submitEdit(
-											i,
-											id,
-											editedTodo,
-											completed,
-											edit,
-											resetEditTodoField
-										)
+								? () => toggleEdit(i, value)
+								: () => submitEdit(i, value, editedTodo, resetEditTodoField)
 						}
 					>
-						<Edit />
+						{!edit ? <AddCircleOutline /> : <AddCircle />}
 					</IconButton>
 					<IconButton
 						disabled={edit}
