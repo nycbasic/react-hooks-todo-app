@@ -8,7 +8,6 @@ const App = () => {
 	const [todo, updateTodo, resetTodoField] = useInputState('');
 	const [editedTodo, updateEditedTodo, resetEditTodoField] = useInputState('');
 	const [todos, submitTodo, submitEdit, deleteTodo, toggleCompleted, toggleEdit] = useAddTodo([]);
-	console.log(todo);
 	return (
 		<div className='App'>
 			<NavBar />

@@ -23,6 +23,7 @@ const Todos = (props) => {
 		submitEdit,
 	} = props;
 	return todos.map((value, i) => {
+		console.log("Todos.jsx Render", value,value.edit, value.todo);
 		const labelId = `checkbox-list-secondary-label-${value}`;
 		const { todo, completed, id, edit } = value;
 		return (
@@ -38,7 +39,6 @@ const Todos = (props) => {
 					<TextField
 						label='Edit Todo'
 						id='filled-size-small'
-						defaultValue={todo}
 						placeholder={todo}
 						variant='filled'
 						size='small'
