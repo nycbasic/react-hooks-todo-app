@@ -23,7 +23,6 @@ const Todos = (props) => {
 	return todos.map((value, i) => {
 		const labelId = `checkbox-list-secondary-label-${value}`;
 		const { todo, completed, edit, id } = value;
-		console.log(editedTodo);
 		return (
 			<ListItem key={value.id}>
 				{edit ? (

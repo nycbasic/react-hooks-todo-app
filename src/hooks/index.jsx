@@ -25,12 +25,15 @@ export const useAddTodo = (initVal) => {
 		setValue(editedTodos);
 		// reset();
 	};
+
 	const handleDeleteTodo = (id) => {
 		const newArr = value.filter((item) => {
 			return item.id !== id;
 		});
 		setValue(newArr);
 	};
+
+
 	const toggleCompleted = (id) => {
 		const completedTodo = value.map((todo) => {
 			if (todo.id === id) {
@@ -75,3 +78,7 @@ export const useInputState = (initVal) => {
 
 	return [value, handleChange, reset];
 };
+
+export const useLocalStorage = () => {
+	
+}
