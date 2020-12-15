@@ -8,7 +8,7 @@ const TodoForm = (props) => {
 		<React.Fragment>
 			<Typography variant='h5'>Todo List</Typography>
 			<Button
-				disabled={todo.length < 4}
+				disabled={todo.todoText.length < 4}
 				variant='contained'
 				color='primary'
 				onClick={() => submitTodo(todo.todoText, uuid(), resetTodoField)}

@@ -8,16 +8,22 @@ export const useAddTodo = (initVal) => {
 		reset();
 	};
 
-	const handledEditSubmit = (id, textEdit, reset) => {
+	const handledEditSubmit = (id, text, reset) => {
+        console.log("SUBMIT EDIT!")
 		const editedTodos = value.map((todo) => {
-            console.log(textEdit.length)
-			if ((todo.id === id) && (textEdit.length > 1)) {
-                return {...todo, todo: textEdit, edit: !todo.edit}
-			} 
-            return {...todo, edit: !todo.edit};
-		});
+	        if (todo.id === id && text.length > 4) {
+				console.log('condtion 2');
+				return { ...todo, todo: text, edit: !todo.edit };
+			} else if (todo.id === id) {
+                console.log("condition 3")
+                return {...todo, edit: !todo.edit}
+            }
+            console.log("FINAL CONDITION")
+            return todo
+        });
+        console.log(editedTodos)
 		setValue(editedTodos);
-		reset();
+		// reset();
 	};
 	const handleDeleteTodo = (id) => {
 		const newArr = value.filter((item) => {
@@ -36,22 +42,14 @@ export const useAddTodo = (initVal) => {
 		setValue(completedTodo);
 	};
 
-	const toggleEdit = (id, text, reset) => {
-        console.log(text)
-		const editedTodo = value.map((todo) => {
-            if(todo.id === id && Object.keys(text).length > 0) {
-                console.log(id);
-                console.log("CONDITION 1", text[id])
-                return {...todo, todo: text[id], edit: !todo.edit}
-            } else if (todo.id === id) {
-                console.log("CONDITION 2")
+	const toggleEdit = (id) => {
+		const toggleEdit = value.map((todo) => {
+			if (todo.id === id) {
 				return { ...todo, edit: !todo.edit };
-            }
-            console.log("DEFAULT CONDITION")
-            return todo;
-        });
-        console.log(editedTodo);
-        setValue(editedTodo);
+			}
+			return todo;
+		});
+		setValue(toggleEdit);
 	};
 	return [
 		value,
@@ -65,13 +63,12 @@ export const useAddTodo = (initVal) => {
 
 export const useInputState = (initVal) => {
 	const [value, setValue] = useState(initVal);
-    const handleChange = (e) => {
-        setValue({[e.target.name]: e.target.value});
-}
-
+	const handleChange = (e) => {
+		e.preventDefault();
+		setValue({ [e.target.name]: e.target.value });
+	};
 	const reset = (e) => {
-        console.log(value)
-		setValue({todoText: ""})
+		setValue({ todoText: '' });
 	};
 
 	return [value, handleChange, reset];

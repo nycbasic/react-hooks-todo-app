@@ -3,81 +3,95 @@ import {
 	ListItem,
 	ListItemSecondaryAction,
 	ListItemText,
-	ListItemAvatar,
 	Checkbox,
-	Avatar,
 	IconButton,
 	TextField,
 } from '@material-ui/core';
-import {
-	Delete,
-	Edit,
-	CheckCircle,
-	AddCircle,
-	AddCircleOutline,
-} from '@material-ui/icons';
+import { Delete, Edit, AddCircle, Cancel } from '@material-ui/icons';
 
 const Todos = (props) => {
 	const {
 		todos,
 		editedTodo,
+		submitEdit,
 		deleteTodo,
 		toggleCompleted,
 		toggleEdit,
 		updateEditedTodo,
 		resetEditTodoField,
-		submitEdit,
 	} = props;
 	return todos.map((value, i) => {
 		const labelId = `checkbox-list-secondary-label-${value}`;
 		const { todo, completed, edit, id } = value;
-		console.log(editedTodo[id])
+		console.log(editedTodo[id]);
 		return (
 			<ListItem key={value.uuid} button>
-				<Checkbox
-					tabIndex={-1}
-					disabled={edit}
-					edge='end'
-					onChange={() => toggleCompleted(id)}
-					inputProps={{ 'aria-labelledby': labelId }}
-				/>
 				{edit ? (
-					<TextField
-						label='Edit Todo'
-						id='filled-size-small'
-						placeholder={todo}
-						variant='filled'
-						size='small'
-						name={id}
-						value={editedTodo[id]}
-						onChange={updateEditedTodo}
-						onSelect={() => console.log("text box selected!")}
-					/>
+					<React.Fragment>
+						<TextField
+							autoFocus
+							label='Edit Todo'
+							id='filled-size-small'
+							placeholder={todo}
+							variant='filled'
+							size='small'
+							name={id}
+							value={editedTodo[id]}
+							onChange={updateEditedTodo}
+							onSelect={updateEditedTodo}
+						/>
+						<ListItemSecondaryAction>
+							<IconButton
+								onClick={() =>submitEdit(id, editedTodo[id], resetEditTodoField)}
+								edge='end'
+								aria-label='add'
+							>
+								<AddCircle />
+							</IconButton>
+							<IconButton>
+								<Cancel
+									edge='end'
+									aria-label='cancel'
+									onClick={() => toggleEdit(id)}
+								/>
+							</IconButton>
+						</ListItemSecondaryAction>
+					</React.Fragment>
 				) : (
-					<ListItemText
-						id={labelId}
-						primary={todo}
-						style={{ textDecoration: completed && 'line-through' }}
-					/>
-				)}
+					<React.Fragment>
+						<Checkbox
+							tabIndex={-1}
+							disabled={edit}
+							edge='end'
+							onChange={() => toggleCompleted(id)}
+							inputProps={{ 'aria-labelledby': labelId }}
+						/>
 
-				<ListItemSecondaryAction>
-					<IconButton
-						disabled={edit}
-						edge='end'
-						aria-label='delete'
-						onClick={() => deleteTodo(id)}
-					>
-						<Delete />
-					</IconButton>
-					<IconButton
-						edge='end'
-						aria-label='edit'
-						onClick={() => toggleEdit(id, editedTodo, resetEditTodoField)}
-					>
-						<Edit />
-					</IconButton>
-				</ListItemSecondaryAction>
+						<ListItemText
+							id={labelId}
+							primary={todo}
+							style={{ textDecoration: completed && 'line-through' }}
+						/>
+
+						<ListItemSecondaryAction>
+							<IconButton
+								disabled={edit}
+								edge='end'
+								aria-label='delete'
+								onClick={() => deleteTodo(id)}
+							>
+								<Delete />
+							</IconButton>
+							<IconButton
+								edge='end'
+								aria-label='edit'
+								onClick={() => toggleEdit(id, editedTodo, resetEditTodoField)}
+							>
+								<Edit />
+							</IconButton>
+						</ListItemSecondaryAction>
+					</React.Fragment>
+				)}
 			</ListItem>
 		);
 	});
