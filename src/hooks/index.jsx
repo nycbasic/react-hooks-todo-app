@@ -11,10 +11,10 @@ export const useAddTodo = (initVal) => {
 	const handledEditSubmit = (id, text, reset) => {
         console.log("SUBMIT EDIT!")
 		const editedTodos = value.map((todo) => {
-	        if (todo.id === id && text.length > 4) {
+	        if (todo.id === id) {
 				console.log('condtion 2');
 				return { ...todo, todo: text, edit: !todo.edit };
-			} else if (todo.id === id) {
+			} else if (todo.id === id && text.length < 4) {
                 console.log("condition 3")
                 return {...todo, edit: !todo.edit}
             }
@@ -64,11 +64,13 @@ export const useAddTodo = (initVal) => {
 export const useInputState = (initVal) => {
 	const [value, setValue] = useState(initVal);
 	const handleChange = (e) => {
-		e.preventDefault();
-		setValue({ [e.target.name]: e.target.value });
+        e.preventDefault();
+        console.log(value);
+		setValue({[e.target.name]: e.target.value});
 	};
 	const reset = (e) => {
-		setValue({ todoText: '' });
+        console.log(e)
+		setValue({todo: ""});
 	};
 
 	return [value, handleChange, reset];

@@ -5,7 +5,10 @@ import NavBar from './NavBar';
 import { useInputState, useAddTodo } from '../hooks';
 
 const App = () => {
-	const [todo, updateTodo, resetTodoField] = useInputState({todoText: ""});
+	const init = {
+		todo: ""
+	}
+	const [todo, updateTodo, resetTodoField] = useInputState(init);
 	const [editedTodo, updateEditedTodo, resetEditTodoField] = useInputState({});
 	const [todos, submitTodo, submitEdit, deleteTodo, toggleCompleted, toggleEdit] = useAddTodo([]);
 	return (

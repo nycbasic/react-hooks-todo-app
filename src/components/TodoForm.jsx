@@ -8,21 +8,21 @@ const TodoForm = (props) => {
 		<React.Fragment>
 			<Typography variant='h5'>Todo List</Typography>
 			<Button
-				disabled={todo.todoText.length < 4}
+				disabled={todo.todo.length < 4}
 				variant='contained'
 				color='primary'
-				onClick={() => submitTodo(todo.todoText, uuid(), resetTodoField)}
+				onClick={() => submitTodo(todo.todo, uuid(), resetTodoField)}
 			>
 				Enter
 			</Button>
 			<TextField
 				type='text'
-				name='todoText'
+				name='todo'
 				label='Enter your todo'
 				placeholder='Enter your todo!'
 				variant='outlined'
 				size='small'
-				value={todo.todoText}
+				value={todo.todo}
 				onChange={updateTodo}
 			/>
 		</React.Fragment>

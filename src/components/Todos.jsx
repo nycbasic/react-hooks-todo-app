@@ -23,25 +23,24 @@ const Todos = (props) => {
 	return todos.map((value, i) => {
 		const labelId = `checkbox-list-secondary-label-${value}`;
 		const { todo, completed, edit, id } = value;
-		console.log(editedTodo[id]);
+		console.log(editedTodo);
 		return (
-			<ListItem key={value.uuid} button>
+			<ListItem key={value.id}>
 				{edit ? (
 					<React.Fragment>
 						<TextField
 							autoFocus
 							label='Edit Todo'
 							id='filled-size-small'
-							placeholder={todo}
 							variant='filled'
 							size='small'
 							name={id}
 							value={editedTodo[id]}
 							onChange={updateEditedTodo}
-							onSelect={updateEditedTodo}
 						/>
 						<ListItemSecondaryAction>
 							<IconButton
+								disabled={editedTodo.length < 4}
 								onClick={() =>submitEdit(id, editedTodo[id], resetEditTodoField)}
 								edge='end'
 								aria-label='add'
