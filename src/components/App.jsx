@@ -6,11 +6,9 @@ import NavBar from './NavBar';
 import { useInputState, useAddTodo } from '../hooks';
 
 const App = () => {
-	const initTodo = {
-		todo: '',
-	};
-	const initTodos = JSON.parse(window.localStorage.getItem('todos')) || ""
-	const [todo, updateTodo, resetTodoField] = useInputState(initTodo);
+	const initTodos = JSON.parse(window.localStorage.getItem('todos')) || [];
+	
+	const [todo, updateTodo, resetTodoField] = useInputState({todo: ""});
 	const [editedTodo, updateEditedTodo, resetEditTodoField] = useInputState({});
 	const [
 		todos,
